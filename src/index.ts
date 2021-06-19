@@ -24,7 +24,7 @@ async function validarRecado
         next();
     }
 
-app.post('/recados', validarRecado, (request: Request, response: Response) => {
+app.post('/', validarRecado, (request: Request, response: Response) => {
     const { titulo, descricao } = request.body;
 
     const recado = {
@@ -38,7 +38,7 @@ app.post('/recados', validarRecado, (request: Request, response: Response) => {
     return response.status(200).json(recado);
 });
 
-app.put('/recados', validarRecado, (request: Request, response: Response) => {
+app.put('/', validarRecado, (request: Request, response: Response) => {
     const { id_recado, titulo, descricao } = request.body;
 
     const index = listaRecados.findIndex((recado: any) => recado.id_recado == id_recado);
@@ -63,7 +63,7 @@ async function validarId(request: Request, response: Response, next: NextFunctio
     next();
 }
 
-app.delete('/recados', validarId, (request: Request, response: Response) => {
+app.delete('/', validarId, (request: Request, response: Response) => {
     const { id_recado } = request.body;
 
     const index = listaRecados.findIndex((recado: any) => recado.id_recado == id_recado);
@@ -73,11 +73,11 @@ app.delete('/recados', validarId, (request: Request, response: Response) => {
     return response.sendStatus(204);
 });
 
-app.get('/recados', (request: Request, response: Response) => {
+app.get('/', (request: Request, response: Response) => {
     return response.json(listaRecados);
 });
 
-app.get('/recados', (request: Request, response: Response) => {
+app.get('/', (request: Request, response: Response) => {
     const { id_recado } = request.body;
 
     const recado = listaRecados.find((recado: any) => recado.id_recado == id_recado);
