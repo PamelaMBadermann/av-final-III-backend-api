@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
-const listaRecados: any = [];
+const listaRecados: Array<Recado> = [];
 
 async function validarRecado
     (request: Request, response: Response, next: NextFunction) {
@@ -25,28 +25,22 @@ async function validarRecado
     }
 
 app.post('/', validarRecado, (request: Request, response: Response) => {
-    const { titulo, descricao } = request.body;
+    let { id_recado, titulo, descricao } = request.body;
 
-    const recado = {
-        id_recado: listaRecados.lenght,
-        titulo,
-        descricao
-    };
+    const recado = new Recado(id_recado = listaRecados.length, titulo, descricao);
 
-    listaRecados.push(recado)
+    listaRecados.push(recado);
     
     return response.status(200).json(recado);
 });
 
 app.put('/', validarRecado, (request: Request, response: Response) => {
-    const { id_recado, titulo, descricao } = request.body;
+    let { id_recado, titulo, descricao } = request.body;
 
     const index = listaRecados.findIndex((recado: any) => recado.id_recado == id_recado);
 
-    listaRecados[index] = {
-        titulo,
-        descricao
-    }
+    titulo = titulo;
+    descricao = descricao;
 
     return response.json(listaRecados[index]);
 });
